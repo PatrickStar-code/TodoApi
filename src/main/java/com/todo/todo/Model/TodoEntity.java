@@ -1,6 +1,8 @@
 package com.todo.todo.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.todo.todo.Enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -48,6 +50,7 @@ public class TodoEntity {
 
     @Column(name = "end_date", nullable = false)
     private LocalDateTime end_date;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")

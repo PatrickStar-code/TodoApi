@@ -57,7 +57,7 @@ public class TodoController {
 
     @PostMapping("/")
     public ResponseEntity<TodoResponse> createTodo(@RequestBody TodoEntity todoEntity) {
-        System.out.println(todoEntity.getUser());
+        System.out.println(todoEntity.getUser());   
         TodoEntity todoCreated = todoService.createTodo(todoEntity);
         return ResponseEntity.ok(TodoMapper.toTodoResponse(todoCreated));
     }

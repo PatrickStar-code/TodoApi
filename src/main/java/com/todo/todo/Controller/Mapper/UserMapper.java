@@ -4,8 +4,6 @@ import com.todo.todo.Controller.Requests.UserRequest;
 import com.todo.todo.Controller.Responses.UserResponse;
 import com.todo.todo.Model.UserEntity;
 
-import java.util.List;
-
 public class UserMapper {
 
     public static UserResponse toUserResponse(UserEntity userEntity) {

@@ -1,6 +1,7 @@
 package com.todo.todo.Controller;
 
 import com.todo.todo.Controller.Mapper.UserMapper;
+import com.todo.todo.Controller.Requests.UserRequest;
 import com.todo.todo.Controller.Responses.UserResponse;
 import com.todo.todo.Model.UserEntity;
 import com.todo.todo.Service.UserService;
@@ -42,6 +43,20 @@ public class UserController {
         else return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok().build();
-
     }
+
+    @PostMapping("/")
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+        System.out.println(userRequest.password());
+        UserEntity userEntity = UserMapper.toUserEntity(userRequest);
+        UserEntity userCreated = userService.createUser(userEntity);
+        return ResponseEntity.ok(UserMapper.toUserResponse(userCreated));
+    };
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long id, @RequestBody UserRequest userRequest) {
+        UserEntity userEntity = UserMapper.toUserEntity(userRequest);
+        Optional<UserEntity> response = userService.updateUser(id, userEntity);
+        return response.map(UserMapper::toUserResponse).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    };
 }

@@ -1,6 +1,8 @@
 package com.todo.todo.Controller.Mapper;
 
+import com.todo.todo.Controller.Requests.TodoRequest;
 import com.todo.todo.Controller.Responses.TodoResponse;
+import com.todo.todo.Controller.Responses.UserResponse;
 import com.todo.todo.Model.TodoEntity;
 import com.todo.todo.Model.UserEntity;
 
@@ -8,7 +10,9 @@ public class TodoMapper {
 
     public static TodoResponse toTodoResponse(TodoEntity todoEntity) {
 
-        Long userId = todoEntity.getUser().getId();
+        UserEntity user = todoEntity.getUser();
+        UserResponse userResponse = UserMapper.toUserResponse(user);
+
 
         return TodoResponse.builder()
                 .id(todoEntity.getId())
@@ -20,20 +24,20 @@ public class TodoMapper {
                 .category(todoEntity.getCategory())
                 .start_date(todoEntity.getStart_date())
                 .end_date(todoEntity.getEnd_date())
-                .userId(userId)
+                .user(userResponse)
                 .build();
     }
 
-    public static TodoEntity toTodoEntity(TodoResponse todoResponse) {
+    public static TodoEntity toTodoEntity(TodoRequest todoRequest) {
         return TodoEntity.builder()
-                .title(todoResponse.title())
-                .status(todoResponse.status())
-                .date(todoResponse.date())
-                .description(todoResponse.description())
-                .priority(todoResponse.priority())
-                .category(todoResponse.category())
-                .start_date(todoResponse.start_date())
-                .end_date(todoResponse.end_date())
+                .title(todoRequest.title())
+                .status(todoRequest.status())
+                .date(todoRequest.date())
+                .description(todoRequest.description())
+                .priority(todoRequest.priority())
+                .category(todoRequest.category())
+                .start_date(todoRequest.start_date())
+                .end_date(todoRequest.end_date())
                 .build();
     }
 }
