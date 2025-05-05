@@ -66,5 +66,9 @@ public class TodoService {
     }
 
 
-
+    public Optional<List<TodoEntity>> getTodosByUserId(Long userId) {
+        Optional<UserEntity> user = userService.getUser(userId);
+        if(user.isPresent()) return Optional.of(todoRepository.findByUserId(userId));
+        else return Optional.empty();
+    }
 }
